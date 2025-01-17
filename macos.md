@@ -13,6 +13,15 @@ Earlier MacOS versions may probably work as well, but not guaranteed.
 
 Before you start, make sure you have installed [Homebrew](https://brew.sh).
 
+You can choose to run my [installation script](./scripts/macos.sh) with
+
+```sh
+chmod +x scripts/macos.sh
+scripts/macos.sh
+```
+
+Or run the following commands manually.
+
 ## RISC-V Toolchain
 
 Install the toolchain with
