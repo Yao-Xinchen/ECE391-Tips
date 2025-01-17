@@ -23,8 +23,8 @@ brew install riscv64-elf-gdb
 ln -s /opt/homebrew/bin/riscv64-elf-gdb /opt/homebrew/bin/riscv64-unknown-elf-gdb
 
 echo "Installign QEMU..."
-git clone https://git.qemu.org/git/qemu.git $HOME/qemu_temp --branch=v9.0.2
-patch -d $HOME/qemu_temp -p1 <../resources/qemu.patch
+git clone https://git.qemu.org/git/qemu.git $HOME/qemu_temp --branch=v9.0.2 --depth 1
+patch -d $HOME/qemu_temp -p0 <../resources/qemu.patch
 cd $HOME/qemu_temp
 ./configure --target-list=riscv64-softmmu --enable-sdl --enable-gtk --enable-vnc --enable-cocoa --enable-system --disable-werror
 make

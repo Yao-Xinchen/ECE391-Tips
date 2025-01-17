@@ -20,11 +20,10 @@ cd $HOME/riscv-gnu-toolchain_temp
 make
 
 echo "Installing QEMU..."
-git clone https://git.qemu.org/git/qemu.git $HOME/qemu_temp --branch=v9.0.2
-patch -d $HOME/qemu_temp -p1 <../resources/qemu.patch
+git clone https://git.qemu.org/git/qemu.git $HOME/qemu_temp --branch=v9.0.2 --depth 1
+patch -d $HOME/qemu_temp -p0 <../resources/qemu.patch
 cd $HOME/qemu_temp
-./configure --target-list=riscv64-softmmu --enable-sdl --enable-gtk --enable-vnc --enable-cocoa --enable-system --disable-werror
-make
+./configure --target-list=riscv64-softmmu --enable-sdl --enable-gtk --enable-vnc --enable-cocoa --enable-system --disable-werror make
 sudo make install
 
 echo "Cleaning up..."
