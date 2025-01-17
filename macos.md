@@ -1,9 +1,17 @@
 # ECE391 on MacOS
 
+The course materials do not officially support MacOS.
+In [mp0](https://courses.grainger.illinois.edu/ece391/fa2024/secure/assignments/mp/mp0/mp0_fa24.pdf),
+it writes "For Mac OS:
+The native setup for Mac OS has demonstrated issues affecting the setup process. If you would like to work
+remotely with Mac OS, it is recommended to either use FastX or SSH X-forwarding."
+
+However, it is actually **not hard** to setup a native environment on MacOS.
+
 This configuration is tested on MacOS Sequoia 15.2.
 Earlier MacOS versions may probably work as well, but not guaranteed.
 
-Before you start, make sure you have installed [Homebrew](https://brew.sh)
+Before you start, make sure you have installed [Homebrew](https://brew.sh).
 
 ## RISC-V Toolchain
 
@@ -14,19 +22,19 @@ brew tap riscv-software-src/riscv
 brew install riscv-tools
 ```
 
-Now, you should have these binaries in `/opt/homebrew/bin/`
+Now, you should have these binaries in `/opt/homebrew/bin/`:
 
 ```text
-riscv64-unknown-elf-addr2line   riscv64-unknown-elf-gcc-ar      riscv64-unknown-elf-lto-dump  
-riscv64-unknown-elf-ar          riscv64-unknown-elf-gcc-nm      riscv64-unknown-elf-nm        
-riscv64-unknown-elf-as          riscv64-unknown-elf-gcc-ranlib  riscv64-unknown-elf-objcopy   
-riscv64-unknown-elf-c++         riscv64-unknown-elf-gcov        riscv64-unknown-elf-objdump   
-riscv64-unknown-elf-c++filt     riscv64-unknown-elf-gcov-dump   riscv64-unknown-elf-ranlib    
-riscv64-unknown-elf-cpp         riscv64-unknown-elf-gcov-tool   riscv64-unknown-elf-readelf   
-riscv64-unknown-elf-elfedit     riscv64-unknown-elf-gdb         riscv64-unknown-elf-size      
-riscv64-unknown-elf-g++         riscv64-unknown-elf-gprof       riscv64-unknown-elf-strings   
-riscv64-unknown-elf-gcc         riscv64-unknown-elf-ld          riscv64-unknown-elf-strip     
-riscv64-unknown-elf-gcc-13.2.0  riscv64-unknown-elf-ld.bfd
+riscv64-unknown-elf-addr2line   riscv64-unknown-elf-gcc-ar      riscv64-unknown-elf-nm        
+riscv64-unknown-elf-ar          riscv64-unknown-elf-gcc-nm      riscv64-unknown-elf-objcopy   
+riscv64-unknown-elf-as          riscv64-unknown-elf-gcc-ranlib  riscv64-unknown-elf-objdump   
+riscv64-unknown-elf-c++         riscv64-unknown-elf-gcov        riscv64-unknown-elf-ranlib    
+riscv64-unknown-elf-c++filt     riscv64-unknown-elf-gcov-dump   riscv64-unknown-elf-readelf   
+riscv64-unknown-elf-cpp         riscv64-unknown-elf-gcov-tool   riscv64-unknown-elf-size      
+riscv64-unknown-elf-elfedit     riscv64-unknown-elf-gprof       riscv64-unknown-elf-strings   
+riscv64-unknown-elf-g++         riscv64-unknown-elf-ld          riscv64-unknown-elf-strip     
+riscv64-unknown-elf-gcc         riscv64-unknown-elf-ld.bfd                                    
+riscv64-unknown-elf-gcc-13.2.0  riscv64-unknown-elf-lto-dump
 ```
 
 You can check whether the toolchain is installed correctly by running
@@ -47,6 +55,7 @@ The package mentioned above does not include **GDB**. You can install it with
 brew install riscv64-elf-gdb
 ```
 
+This installs the GDB binary to `/opt/homebrew/bin/riscv64-elf-gdb`.
 Then, you can link it to `/opt/homebrew/bin/riscv64-unknown-elf-gdb` with
 
 ```sh
@@ -88,7 +97,7 @@ make
 sudo make install
 ```
 
-After that, the `qemu-system-riscv64` should be available in `/usr/local/bin/`.
+After that, the `qemu-system-riscv64` is available in `/usr/local/bin/`.
 
 You can check this with
 
@@ -113,4 +122,4 @@ CompileFlags:
   ]
 ```
 
-Later, your clangd should be able to provide code completion and syntax checking.
+Later, your Clangd should be able to provide code completion and syntax checking.
