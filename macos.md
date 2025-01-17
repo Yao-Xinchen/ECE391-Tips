@@ -81,7 +81,7 @@ git clone https://git.qemu.org/git/qemu.git --branch=v9.0.2
 ```
 
 You can download the patches from [the source official](http://courses.grainger.illinois.edu/ece391/fa2024/secure/assignments/mp/mp0/qemu.patch)
-or from [my backup](./resources/qemu.patch)
+or from [my backup](./resources/qemu.patch).
 
 Then, move the patch to the root directory of the QEMU source code and apply it with
 
