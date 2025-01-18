@@ -12,7 +12,6 @@
             "cwd": "${workspaceFolder}/src/kern",
             "miDebuggerPath": "riscv64-unknown-elf-gdb",
             "miDebuggerServerAddress": "localhost:1234",
-            "stopOnEntry": true,
             "preLaunchTask": "Run Kernel"
         },
     ]

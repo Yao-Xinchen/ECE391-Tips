@@ -58,8 +58,8 @@ sudo make install
 
 # Clean up
 echo -e "${YELLOW}Cleaning up temporary files...${NC}"
-rm -rf $HOME/riscv-gnu-toolchain_temp
-rm -rf $HOME/qemu_temp
+sudo rm -rf $HOME/riscv-gnu-toolchain_temp
+sudo rm -rf $HOME/qemu_temp
 
 # Add to PATH
 echo -e "${YELLOW}Adding /opt/riscv/bin and /opt/qemu/bin to PATH...${NC}"
