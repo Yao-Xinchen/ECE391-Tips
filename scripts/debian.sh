@@ -7,7 +7,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 echo -e "${YELLOW}Checking if the script is run as root...${NC}"
-if [[ "$EUID" -eq 0 ]]; then
+if [[ $EUID -eq 0 ]]; then
     echo -e "${RED}Do not run as root. Exiting.${NC}"
     exit 1
 fi
@@ -35,6 +35,7 @@ cd $HOME/riscv-gnu-toolchain_temp
 echo -e "${YELLOW}Building RISCV GNU Toolchain...${NC}"
 make
 
+# QEMU
 echo -e "${YELLOW}Creating /opt/qemu directory...${NC}"
 sudo mkdir -p /opt/qemu
 sudo chmod -R a+rwx /opt/qemu
@@ -53,10 +54,12 @@ cd $HOME/qemu_temp
 make
 make install
 
+# Clean up
 echo -e "${YELLOW}Cleaning up temporary files...${NC}"
 rm -rf $HOME/riscv-gnu-toolchain_temp
 rm -rf $HOME/qemu_temp
 
+# Add to PATH
 echo -e "${YELLOW}Adding /opt/riscv/bin and /opt/qemu/bin to PATH...${NC}"
 if command -v zsh &>/dev/null; then
     echo "export PATH=/opt/riscv/bin:/opt/qemu/bin:\$PATH" >> ~/.zshrc

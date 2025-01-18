@@ -1,28 +1,36 @@
 #!/bin/zsh
 
-# cannot be run as root
+# Define color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo -e "${YELLOW}Checking if the script is run as root...${NC}"
 if [[ $EUID -eq 0 ]]; then
-    echo "Do not run as root. Exiting."
+    echo -e "${RED}Do not run as root. Exiting.${NC}"
     exit 1
 fi
 
-# check homebrew
+echo -e "${YELLOW}Checking Homebrew installation...${NC}"
 if command -v brew &>/dev/null; then
-    echo "Homebrew is installed."
+    echo -e "${GREEN}Homebrew is installed.${NC}"
 else
-    echo "Homebrew is not installed. Exiting."
+    echo -e "${RED}Homebrew is not installed. Exiting.${NC}"
     exit 1
 fi
 
-echo "Installing RISCV-tools..."
+# RISCV-tools
+echo -e "${YELLOW}Installing RISCV-tools...${NC}"
 brew tap riscv-software-src/riscv
 brew install riscv-tools
 
-echo "Installing GDB..."
+echo -e "${YELLOW}Installing GDB...${NC}"
 brew install riscv64-elf-gdb
 ln -s /opt/homebrew/bin/riscv64-elf-gdb /opt/homebrew/bin/riscv64-unknown-elf-gdb
 
-echo "Installign QEMU..."
+# QEMU
+echo -e "${YELLOW}Installing QEMU...${NC}"
 git clone https://git.qemu.org/git/qemu.git $HOME/qemu_temp --branch=v9.0.2 --depth 1
 patch -d $HOME/qemu_temp -p0 <../resources/qemu.patch
 cd $HOME/qemu_temp
@@ -30,7 +38,8 @@ cd $HOME/qemu_temp
 make
 sudo make install
 
-echo "Cleaning up..."
+# Clean up
+echo -e "${YELLOW}Cleaning up temporary files...${NC}"
 rm -rf $HOME/qemu_temp
 
-echo "Done."
+echo -e "${GREEN}Installation complete!${NC}"
