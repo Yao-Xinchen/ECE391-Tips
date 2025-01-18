@@ -27,7 +27,6 @@ libpixman-1-dev libgtk-3-dev
 
 echo -e "${YELLOW}Creating /opt/riscv directory...${NC}"
 sudo mkdir -p /opt/riscv
-sudo chmod -R a+rwx /opt/riscv
 
 echo -e "${YELLOW}Cloning RISCV GNU Toolchain...${NC}"
 git clone --branch 2024.04.12 https://github.com/riscv/riscv-gnu-toolchain $HOME/riscv-gnu-toolchain_temp
@@ -37,12 +36,11 @@ cd $HOME/riscv-gnu-toolchain_temp
 ./configure --prefix=/opt/riscv --enable-multilib
 
 echo -e "${YELLOW}Building RISCV GNU Toolchain...${NC}"
-make
+sudo make
 
 # QEMU
 echo -e "${YELLOW}Creating /opt/qemu directory...${NC}"
 sudo mkdir -p /opt/qemu
-sudo chmod -R a+rwx /opt/qemu
 
 echo -e "${YELLOW}Cloning QEMU...${NC}"
 git clone https://git.qemu.org/git/qemu.git $HOME/qemu_temp --branch=v9.0.2 --depth 1
@@ -56,7 +54,7 @@ echo -e "${YELLOW}Configuring and building QEMU...${NC}"
 --target-list=riscv32-softmmu,riscv64-softmmu --enable-gtk \
 --enable-system --disable-werror
 make
-make install
+sudo make install
 
 # Clean up
 echo -e "${YELLOW}Cleaning up temporary files...${NC}"
