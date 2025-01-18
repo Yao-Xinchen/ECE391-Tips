@@ -1,10 +1,18 @@
 # VS Code
 
 This is a demo for how to set up a RISC-V development environment in VS Code.
+These settings will help you write, compile, and debug RISC-V code in VS Code.
 
 ## Debugging
 
+![debug](./resources/debug.png)
+
+VS Code has a built-in GUI debugger that supports GDB.
+That requires several configuration files under the `.vscode` directory in the root of your project, including: [launch.json](./template/.vscode/launch.json), [tasks.json](./template/.vscode/tasks.json), and [settings.json](./template/.vscode/settings.json).
+
 ## Language Server
+
+![clangd_effect](./resources/clangd_effect.png)
 
 I use [clangd extension](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd)
 for
@@ -12,6 +20,8 @@ for
 - code completion
 - finding definitions and usages
 - inlay hints
+
+![clangd](./resources/clangd.png)
 
 By default, it uses the `gcc` in your PATH to compile the code.
 But we want to use the `riscv64-unknown-elf-gcc` instead.
@@ -23,23 +33,18 @@ We need the following flags:
 3. `-I` to specify the path to the headers
 4. `--target=riscv-unknown-elf` to specify the target architecture
 
-On my Mac, the `.clangd` file looks like this:
-```
-CompileFlags:
-  Add: [
-    -xc,
-    --gcc-toolchain=/opt/homebrew/bin/riscv64-unknown-elf-gcc,
-    -I/opt/homebrew/Cellar/riscv-gnu-toolchain/main/lib/gcc/riscv64-unknown-elf/13.2.0/include,
-    --target=riscv64-unknown-elf,
-  ]
-```
+You can check my [.clangd for Linux](./resources/.clangd_linux) or [.clangd for Mac](./resources/.clangd_mac) for reference.
 
 ## Formatting
 
 I use [clang-format](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)
 to format the code.
 
+![clang-format](./resources/clang_format.png)
+
 After installing the extension, change your default formatter to `clang-format` in the settings.
+
+![default_formatter](./resources/default_formatter.png)
 
 The extension relies on the `clang-format` executable in your PATH.
 You can install it with your package manager (e.g. `brew install clang-format` on Mac).
@@ -49,4 +54,8 @@ You can write your own style based on my [.clang-format](./template/.clang-forma
 
 After that, you are ready to format your code.
 You can check your keymaps for the format command in the `Keyboard Shortcuts` settings.
-Press `Ctrl+K` then `Ctrl+S` to open the settings and search for `format`.
+Press `Ctrl+K` then `Ctrl+S` (or `Command+K` then `Command+S`) to open the settings and search for `format`.
+
+![format_keymap](./resources/format_keymap.png)
+
+Press that key combination in your .c or .h files to format the code.

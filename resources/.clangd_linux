@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [
+    -xc,
+    --gcc-toolchain=/opt/riscv/bin/riscv64-unknown-elf-gcc,
+    -I/opt/riscv/lib/gcc/riscv64-unknown-elf/13.2.0/include,
+    --target=riscv64-unknown-elf,
+  ]
