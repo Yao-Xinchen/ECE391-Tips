@@ -1,0 +1,9 @@
+{
+    "clangd.fallbackFlags": [
+        "-I${workspaceFolder}/kern"
+    ],
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c"
+    }
+}
