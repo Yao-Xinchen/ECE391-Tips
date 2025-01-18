@@ -131,4 +131,4 @@ CompileFlags:
   ]
 ```
 
-Later, your Clangd should be able to provide code completion and syntax checking.
+For more information, you can refer to my [VS Code setup](./vscode.md).
