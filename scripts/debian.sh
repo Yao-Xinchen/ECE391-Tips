@@ -30,11 +30,10 @@ git clone --branch 2024.04.12 https://github.com/riscv/riscv-gnu-toolchain $HOME
 
 echo -e "${YELLOW}Configuring and building RISCV GNU Toolchain...${NC}"
 cd $HOME/riscv-gnu-toolchain_temp
-./configure --prefix=/opt/toolchains/riscv/ --enable-multilib
+./configure --prefix=/opt/riscv --enable-multilib
 
 echo -e "${YELLOW}Building RISCV GNU Toolchain...${NC}"
 make
-make install
 
 echo -e "${YELLOW}Creating /opt/qemu directory...${NC}"
 sudo mkdir -p /opt/qemu
@@ -52,6 +51,7 @@ cd $HOME/qemu_temp
 --target-list=riscv32-softmmu,riscv64-softmmu --enable-gtk \
 --enable-system --disable-werror
 make
+make install
 
 echo -e "${YELLOW}Cleaning up temporary files...${NC}"
 rm -rf $HOME/riscv-gnu-toolchain_temp
