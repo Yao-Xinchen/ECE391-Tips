@@ -57,4 +57,12 @@ echo -e "${YELLOW}Cleaning up temporary files...${NC}"
 rm -rf $HOME/riscv-gnu-toolchain_temp
 rm -rf $HOME/qemu_temp
 
+echo -e "${YELLOW}Adding /opt/riscv/bin and /opt/qemu/bin to PATH...${NC}"
+if command -v zsh &>/dev/null; then
+    echo "export PATH=/opt/riscv/bin:/opt/qemu/bin:\$PATH" >> ~/.zshrc
+fi
+if command -v bash &>/dev/null; then
+    echo "export PATH=/opt/riscv/bin:/opt/qemu/bin:\$PATH" >> ~/.bashrc
+fi
+
 echo -e "${GREEN}Installation complete!${NC}"
