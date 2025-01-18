@@ -1,0 +1,10 @@
+*.o
+*.elf
+*.asm
+# .vscode
+.clangd
+.DS_Store
+src/util/mkfs
+src/util/*.raw
+src/user/bin
+src/kern/gdb-user
