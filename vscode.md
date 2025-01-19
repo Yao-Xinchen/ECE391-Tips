@@ -3,6 +3,8 @@
 This is a demo for how to set up a RISC-V development environment in VS Code.
 These settings will help you write, compile, and debug RISC-V code in VS Code.
 
+You can check my [template project](./template/) for a complete example.
+
 ## Debugging
 
 ![debug](./resources/debug.png)
@@ -10,20 +12,68 @@ These settings will help you write, compile, and debug RISC-V code in VS Code.
 VS Code has a built-in GUI debugger that supports GDB.
 That requires several configuration files under the `.vscode` directory in the root of your project, including: [launch.json](./template/.vscode/launch.json) and [tasks.json](./template/.vscode/tasks.json).
 
+With these configurations, you can:
+1. Compile and run your program with a single click in the `run and debug` panel.
+2. Set breakpoints and step through your code.
+3. Inspect runtime values of variables and registers.
+
 ### launch.json
 
 The `launch.json` file specifies how to run your program, including the executable path, working directory, debugger path, and so on.
 It relies on a `preLaunchTask` to indicate what commands are needed to run the program.
 
-Check my [launch.json](./template/.vscode/launch.json) for reference.
+In my [launch.json](./template/.vscode/launch.json), the snippet defines a debug configuration
+called `main` for the kernel.
+It will execute the `Run Kernel` task before launching the debugger.
+
+```json
+{
+    "name": "main",
+    "type": "cppdbg",
+    "request": "launch",
+    "program": "${workspaceFolder}/src/kern/kernel.elf",
+    "cwd": "${workspaceFolder}/src/kern",
+    "miDebuggerPath": "riscv64-unknown-elf-gdb",
+    "miDebuggerServerAddress": "localhost:1234",
+    "preLaunchTask": "Run Kernel"
+},
+```
 
 ### tasks.json
 
 The `tasks`, including the choice for `preLaunchTask`, are defined in the `tasks.json` file.
 
-<!-- TODO: explain tasks, and how they rely on each other -->
+In my [tasks.json](./template/.vscode/tasks.json), each task is a set of commands to run.
+You can give each task a `label` and a `command` to run.
+The `cwd` option specifies the working directory for the command.
 
-Check my [tasks.json](./template/.vscode/tasks.json) for reference.
+The `dependsOn` option specifies other tasks that need to be run before this one.
+When you run the task, it will automatically run the tasks listed in `dependsOn` first.
+
+```json
+{
+    "label": "Build Kernel",
+    "type": "shell",
+    "command": "make",
+    "args": [
+        "all",
+        "-j"
+    ],
+    "group": {
+        "kind": "build",
+        "isDefault": true
+    },
+    "problemMatcher": [
+        "$gcc"
+    ],
+    "options": {
+        "cwd": "${workspaceFolder}/src/kern"
+    },
+    "dependsOn": [
+        "Clean Kernel"
+    ]
+},
+```
 
 ## Language Server
 
