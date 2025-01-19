@@ -17,7 +17,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 # RISCV-tools
-echo -e "${YELLOW}Installing RISCV prerequisites...${NC}"
+echo -e "${YELLOW}Installing prerequisites...${NC}"
 sudo apt update
 sudo apt install -y autoconf automake autotools-dev curl python3 \
 python3-pip libmpc-dev libmpfr-dev libgmp-dev gawk build-essential \

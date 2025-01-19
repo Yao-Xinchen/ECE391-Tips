@@ -1,4 +1,4 @@
-# VS Code
+# VS Code Configuration
 
 This is a demo for how to set up a RISC-V development environment in VS Code.
 These settings will help you write, compile, and debug RISC-V code in VS Code.
