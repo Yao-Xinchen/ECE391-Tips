@@ -8,7 +8,22 @@ These settings will help you write, compile, and debug RISC-V code in VS Code.
 ![debug](./resources/debug.png)
 
 VS Code has a built-in GUI debugger that supports GDB.
-That requires several configuration files under the `.vscode` directory in the root of your project, including: [launch.json](./template/.vscode/launch.json), [tasks.json](./template/.vscode/tasks.json), and [settings.json](./template/.vscode/settings.json).
+That requires several configuration files under the `.vscode` directory in the root of your project, including: [launch.json](./template/.vscode/launch.json) and [tasks.json](./template/.vscode/tasks.json).
+
+### launch.json
+
+The `launch.json` file specifies how to run your program, including the executable path, working directory, debugger path, and so on.
+It relies on a `preLaunchTask` to indicate what commands are needed to run the program.
+
+Check my [launch.json](./template/.vscode/launch.json) for reference.
+
+### tasks.json
+
+The `tasks`, including the choice for `preLaunchTask`, are defined in the `tasks.json` file.
+
+<!-- TODO: explain tasks, and how they rely on each other -->
+
+Check my [tasks.json](./template/.vscode/tasks.json) for reference.
 
 ## Language Server
 
