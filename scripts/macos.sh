@@ -36,7 +36,7 @@ ln -s /opt/homebrew/bin/riscv64-elf-gdb /opt/homebrew/bin/riscv64-unknown-elf-gd
 echo -e "${YELLOW}Installing QEMU...${NC}"
 git clone https://git.qemu.org/git/qemu.git $HOME/qemu_temp --branch=v9.0.2 --depth 1
 cd $HOME/qemu_temp
-patch -p0 < $DIR../resources/qemu.patch
+patch -p0 < $DIR/../resources/qemu.patch
 ./configure --target-list=riscv64-softmmu --enable-sdl --enable-gtk --enable-vnc --enable-cocoa --enable-system --disable-werror
 make
 sudo make install
