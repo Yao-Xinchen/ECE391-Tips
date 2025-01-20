@@ -25,10 +25,7 @@ understanding development tools and improving debugging workflows.
 
 You can install the environment with a single script:
 
-<video controls>
-  <source src="./resources/install_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/user-attachments/assets/fbc44238-8ee3-402e-b526-3b1d18bb129f
 
 ### Debugging
 
