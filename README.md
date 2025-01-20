@@ -21,15 +21,37 @@ understanding development tools and improving debugging workflows.
 
 ## Preview
 
+### Environment Installation
+
+You can install the environment with a single script:
+
+<video controls>
+  <source src="./resources/install_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ### Debugging
+
+You can debug with a GUI interface:
+1. Set breakpoints in the editor.
+2. Run the launch configuration.
+3. Use the GUI to step through the code.
+3. Inspect variables and registers.
 
 ![debug_demo](./resources/debug_demo.gif)
 
 ### Language Server
 
+You can use the language server for code analysis:
+1. Hover over variables to see their types.
+2. See function signatures and documentation.
+3. Find references and go to definitions.
+
 ![clangd_demo](./resources/clangd_demo.gif)
 
 ### Code Formatting
+
+You can format code no matter how messy it is:
 
 ![clang_format_demo](./resources/clang_format_demo.gif)
 
