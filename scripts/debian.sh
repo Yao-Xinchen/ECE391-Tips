@@ -7,7 +7,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Get the directory of the script
-script_path=$(realpath "$0")
+script_path=$(dirname "$(realpath "$0")")
 
 # Check if the script is run as root
 echo -e "${YELLOW}Checking if the script is run as root...${NC}"
