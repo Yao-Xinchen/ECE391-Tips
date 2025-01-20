@@ -21,6 +21,18 @@ understanding development tools and improving debugging workflows.
 
 ## Preview
 
+### Debugging
+
+![debug_demo](./resources/debug_demo.gif)
+
+### Language Server
+
+![clangd_demo](./resources/clangd_demo.gif)
+
+### Code Formatting
+
+![clang_format_demo](./resources/clang_format_demo.gif)
+
 ## Acknowledgments
 
 This repository contains references to materials from the ECE391 course at the University of Illinois Urbana-Champaign. All course materials are the creation of the course staff, and I am grateful for their well-designed resources.

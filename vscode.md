@@ -77,7 +77,7 @@ When you run the task, it will automatically run the tasks listed in `dependsOn`
 
 ## Language Server
 
-![clangd_effect](./resources/clangd_effect.png)
+![clangd_demo](./resources/clangd_demo.gif)
 
 I use [clangd extension](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd)
 for
