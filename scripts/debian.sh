@@ -7,7 +7,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Get the directory of the script
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+script_path=$(realpath "$0")
 
 # Check if the script is run as root
 echo -e "${YELLOW}Checking if the script is run as root...${NC}"
@@ -47,7 +47,7 @@ git clone https://git.qemu.org/git/qemu.git $HOME/qemu_temp --branch=v9.0.2 --de
 
 echo -e "${YELLOW}Applying QEMU patch...${NC}"
 cd $HOME/qemu_temp
-patch -p0 < $DIR/../resources/qemu.patch
+patch -p0 < $script_path/../resources/qemu.patch
 
 echo -e "${YELLOW}Configuring and building QEMU...${NC}"
 ./configure --prefix=/opt/qemu \

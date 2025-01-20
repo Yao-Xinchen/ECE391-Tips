@@ -7,7 +7,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Get the directory of the script
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+script_path=$(realpath "$0")
 
 echo -e "${YELLOW}Checking if the script is run as root...${NC}"
 if [[ $EUID -eq 0 ]]; then
@@ -33,10 +33,14 @@ brew install riscv64-elf-gdb
 ln -s /opt/homebrew/bin/riscv64-elf-gdb /opt/homebrew/bin/riscv64-unknown-elf-gdb
 
 # QEMU
-echo -e "${YELLOW}Installing QEMU...${NC}"
+echo -e "${YELLOW}Cloning QEMU...${NC}"
 git clone https://git.qemu.org/git/qemu.git $HOME/qemu_temp --branch=v9.0.2 --depth 1
+
+echo -e "${YELLOW}Applying QEMU patch...${NC}"
 cd $HOME/qemu_temp
-patch -p0 < $DIR/../resources/qemu.patch
+patch -p0 < $script_path/../resources/qemu.patch
+
+echo -e "${YELLOW}Configuring and building QEMU...${NC}"
 ./configure --target-list=riscv64-softmmu --enable-sdl --enable-gtk --enable-vnc --enable-cocoa --enable-system --disable-werror
 make
 sudo make install
