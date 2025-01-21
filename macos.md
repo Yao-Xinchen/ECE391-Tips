@@ -95,10 +95,11 @@ Download the patch
 **These patches are for FA2024.
 If you are in a different semester, please download the corresponding patch from the course website.**
 
-Move the patch to the root directory of the QEMU source code and apply it:
-
+Apply the patch for RISC-V:
+Replace `/path/to/your/qemu.patch` with the path to the [patch file](./resources/qemu.patch).
 ```sh
-patch -p0 < qemu.patch
+cd qemu
+patch -p0 < /path/to/your/qemu.patch
 ```
 
 Compile and install the QEMU:

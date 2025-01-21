@@ -1,35 +1,42 @@
 # ECE391 on Linux
 
 The [official tutorial](https://courses.grainger.illinois.edu/ece391/fa2024/secure/assignments/mp/mp0/mp0_fa24.pdf)
-puts the QEMU source code under RISCV toolchain source code,
-and install them to the same directory `/opt/toolchains/riscv`.
-This is quite confusing, as the QEMU and the toolchain are **not related** to each other.
-Therefore, I choose to install them separately.
+places the QEMU source code within the RISC-V toolchain directory (/opt/toolchains/riscv)
+and installs both to the same location.
+However, QEMU and the RISC-V toolchain are **independent** tools, and combining them can be confusing.
+This guide provides a more organized setup with separate installations.
 
-I have two scripts for installing on
-[Debian/Ubuntu](./scripts/debian.sh) and [Redhat/Fedora](./scripts/redhat.sh).
+You can either use the provided scripts for [Debian/Ubuntu](./scripts/debian.sh) or [Redhat/Fedora](./scripts/redhat.sh).
 
-You can run them with
+Or follow the manual steps below.
+
+## Installation Scripts
+
+Run the following commands to set up the environment automatically:
 
 ```sh
-chmod +x scripts/debian.sh
-scripts/debian.sh
+git clone https://github.com/Yao-Xinchen/ECE391-Workflow
+cd ECE391-Workflow
+chmod +x ./scripts/debian.sh
+./scripts/debian.sh
 ```
-or
+
+Or for RedHat/Fedora:
+
 ```sh
-chmod +x scripts/redhat.sh
-scripts/redhat.sh
+git clone https://github.com/Yao-Xinchen/ECE391-Workflow
+cd ECE391-Workflow
+chmod +x ./scripts/redhat.sh
+./scripts/redhat.sh
 ```
 
-Otherwise, you can follow the instructions below to install manually.
+## Manual Installation
 
-## Prerequisites
+### Prerequisites
 
-Before you start, make sure you have installed the prerequisites.
+#### For Debian/Ubuntu
 
-### For Debian/Ubuntu
-
-Install with
+Install with:
 
 ```sh
 sudo apt install -y autoconf automake autotools-dev curl python3 \
@@ -39,9 +46,9 @@ libexpat-dev ninja-build git cmake libglib2.0-dev libslirp-dev \
 libpixman-1-dev libgtk-3-dev
 ```
 
-### For RedHat/Fedora
+#### For RedHat/Fedora
 
-Install with
+Install with:
 
 ```sh
 sudo yum install autoconf automake python3 libmpc-devel mpfr-devel \
@@ -49,31 +56,31 @@ gmp-devel gawk bison flex texinfo patchutils gcc gcc-c++ \
 zlib-devel expat-devel libslirp-devel
 ```
 
-## RISC-V Toolchain
+### RISC-V Toolchain
 
-Create installation directory `/opt/riscv` if it does not exist.
+Create installation directory `/opt/riscv` if it does not exist:
 ```sh
 sudo mkdir -p /opt/riscv
 ```
 
-Clone the source code to a temporary directory.
+Clone the source code to a temporary directory:
 ```sh
 git clone --branch 2024.04.12 https://github.com/riscv/riscv-gnu-toolchain ~/riscv-gnu-toolchain_temp
 ```
 
-Build and install with
+Build and install with:
 ```sh
 cd ~/riscv-gnu-toolchain_temp
 ./configure --prefix=/opt/riscv --enable-multilib
 sudo make
 ```
 
-You can clean up the temporary directory after installation.
+Clean up the temporary directory after installation:
 ```sh
 sudo rm -rf ~/riscv-gnu-toolchain_temp
 ```
 
-Now, you should have these binaries in `/opt/riscv/bin/`:
+Now, these binaries are available in `/opt/riscv/bin/`:
 ```text
 riscv64-unknown-elf-addr2line   riscv64-unknown-elf-gcc-nm         riscv64-unknown-elf-nm
 riscv64-unknown-elf-ar          riscv64-unknown-elf-gcc-ranlib     riscv64-unknown-elf-objcopy
@@ -88,26 +95,33 @@ riscv64-unknown-elf-gcc-13.2.0  riscv64-unknown-elf-ld.bfd
 riscv64-unknown-elf-gcc-ar      riscv64-unknown-elf-lto-dump
 ```
 
-## QEMU
+### QEMU
 
-Create installation directory `/opt/qemu` if it does not exist.
+Create installation directory `/opt/qemu` if it does not exist:
 ```sh
 sudo mkdir -p /opt/qemu
 ```
 
-Clone the source code to a temporary directory.
+Clone the source code to a temporary directory:
 ```sh
 git clone https://git.qemu.org/git/qemu.git ~/qemu_temp --branch=v9.0.2 --depth 1
 ```
 
-Apply the patch for RISC-V.
+Download the patch
+- From [the ECE391 official](http://courses.grainger.illinois.edu/ece391/fa2024/secure/assignments/mp/mp0/qemu.patch)
+- Or from [my backup](./resources/qemu.patch)
+
+**These patches are for FA2024.
+If you are in a different semester, please download the corresponding patch from the course website.**
+
+Apply the patch for RISC-V:
 Replace `/path/to/your/qemu.patch` with the path to the [patch file](./resources/qemu.patch).
 ```sh
 cd ~/qemu_temp
 patch -p0 < /path/to/your/qemu.patch
 ```
 
-Build and install with
+Build and install with:
 ```sh
 ./configure --prefix=/opt/qemu \
 --target-list=riscv32-softmmu,riscv64-softmmu --enable-gtk \
@@ -116,18 +130,18 @@ make
 sudo make install
 ```
 
-You can clean up the temporary directory after installation.
+Clean up the temporary directory after installation:
 ```sh
 sudo rm -rf ~/qemu_temp
 ```
 
-Now, you should have these binaries in `/opt/qemu/bin/`:
+Now, these binaries are available in `/opt/qemu/bin/`:
 ```text
 elf2dmp    qemu-ga   qemu-io      qemu-nbd        qemu-storage-daemon  qemu-system-riscv64
 qemu-edid  qemu-img  qemu-keymap  qemu-pr-helper  qemu-system-riscv32
 ```
 
-## Add to PATH
+### Add to PATH
 
 Add the following lines to your `~/.bashrc` or `~/.zshrc`.
 ```sh
@@ -136,11 +150,12 @@ export PATH=/opt/riscv/bin:/opt/qemu/bin:$PATH
 
 Then, run `source ~/.bashrc` or `source ~/.zshrc` to apply the changes.
 
-Now, you can check whether they are installed correctly with the `which` command.
+Verify the installation by running:
 
-For example,
 ```sh
 which riscv64-unknown-elf-gcc
 ```
 
 This should return `/opt/riscv/bin/riscv64-unknown-elf-gcc`.
+
+Replace `riscv64-unknown-elf-gcc` with any of the installed binaries to test others.
