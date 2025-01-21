@@ -1,11 +1,11 @@
-# ECE391 Tips
+# ECE391 Workflow
 
-This repository documents some tricks I explored during
+This repository documents the workflows and tools I explored during
 [ECE391 FA2024](https://courses.grainger.illinois.edu/ece391/fa2024/),
 focusing on environment setup and tool configuration.
-It includes scripts and guides for replicating these setups.
+It includes [scripts](./scripts/) and guides for replicating these setups.
 
-There are guides for:
+Contents:
 1. Environment installation
     - [MacOS](./macos.md)
     - [Linux](./linux.md)
@@ -17,19 +17,19 @@ There are guides for:
 This repository does not include any specific course solutions, assignments, or code
 that may lead to academic dishonesty.
 The provided information is intended solely to aid in
-understanding development tools and improving debugging workflows.
+understanding development tools and optimizing debugging workflows.
 
 ## Preview
 
 ### Environment Installation
 
-You can install the environment with a single script:
+Install the environment with a single script:
 
 https://github.com/user-attachments/assets/fbc44238-8ee3-402e-b526-3b1d18bb129f
 
 ### Debugging
 
-You can debug with a GUI interface:
+Debug with a GUI interface:
 1. Set breakpoints in the editor.
 2. Run the launch configuration.
 3. Use the GUI to step through the code.
@@ -39,7 +39,7 @@ You can debug with a GUI interface:
 
 ### Language Server
 
-You can use the language server for code analysis:
+Use the language server for enhanced code analysis:
 1. Hover over variables to see their types.
 2. See function signatures and documentation.
 3. Find references and go to definitions.
@@ -48,7 +48,7 @@ You can use the language server for code analysis:
 
 ### Code Formatting
 
-You can format code no matter how messy it is:
+Format your code effortlessly, no matter how messy:
 
 ![clang_format_demo](./resources/clang_format_demo.gif)
 
