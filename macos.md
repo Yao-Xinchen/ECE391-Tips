@@ -6,32 +6,38 @@ it writes "For Mac OS:
 The native setup for Mac OS has demonstrated issues affecting the setup process. If you would like to work
 remotely with Mac OS, it is recommended to either use FastX or SSH X-forwarding."
 
-However, it is actually **not hard** to setup a native environment on MacOS.
+However, setting up a native environment on macOS is actually **straightforward** with the right steps.
 
 This configuration is tested on MacOS Sequoia 15.2.
 Earlier MacOS versions may probably work as well, but not guaranteed.
 
-Before you start, make sure you have installed [Homebrew](https://brew.sh).
+Ensure you have [Homebrew](https://brew.sh) installed before proceeding.
 
-You can choose to run my [installation script](./scripts/macos.sh) with
+You can either run my [installation script](./scripts/macos.sh) or follow the manual steps.
+
+## Installation Script
+
+Run the following commands to set up the environment automatically:
 
 ```sh
-chmod +x scripts/macos.sh
-scripts/macos.sh
+git clone https://github.com/Yao-Xinchen/ECE391-Workflow
+cd ECE391-Workflow
+chmod +x ./scripts/macos.sh
+./scripts/macos.sh
 ```
 
-Or run the following commands manually.
+## Manual Installation
 
-## RISC-V Toolchain
+### RISC-V Toolchain
 
-Install the toolchain with
+Install the toolchain with:
 
 ```sh
 brew tap riscv-software-src/riscv
 brew install riscv-tools
 ```
 
-Now, you should have these binaries in `/opt/homebrew/bin/`:
+This installs the following binaries in `/opt/homebrew/bin/`:
 
 ```text
 riscv64-unknown-elf-addr2line   riscv64-unknown-elf-gcc-ar      riscv64-unknown-elf-nm        
@@ -46,42 +52,35 @@ riscv64-unknown-elf-gcc         riscv64-unknown-elf-ld.bfd
 riscv64-unknown-elf-gcc-13.2.0  riscv64-unknown-elf-lto-dump
 ```
 
-You can check whether the toolchain is installed correctly by running
+To verify the installation, run:
 
 ```sh
 which riscv64-unknown-elf-gcc
 ```
 
-Replace `riscv64-unknown-elf-gcc` with any of the binaries above to check the installation of other tools.
+Replace `riscv64-unknown-elf-gcc` with any of the installed binaries to test others.
 
-Now, you are able to compile the project with the Makefile provided in the project root directory.
+#### GDB
 
-### GDB
-
-The package mentioned above does not include **GDB**. You can install it with
+The toolchain package does not include **GDB**. To install GDB, run:
 
 ```sh
 brew install riscv64-elf-gdb
 ```
 
-This installs the GDB binary to `/opt/homebrew/bin/riscv64-elf-gdb`.
-Then, you can link it to `/opt/homebrew/bin/riscv64-unknown-elf-gdb` with
+This installs riscv64-elf-gdb in `/opt/homebrew/bin/`.
+Link it to match the expected name:
 
 ```sh
 ln -s /opt/homebrew/bin/riscv64-elf-gdb /opt/homebrew/bin/riscv64-unknown-elf-gdb
 ```
 
-## QEMU
+### QEMU
 
-To run your compiled kernel, you still need to install **QEMU**.
+The version of QEMU installed via Homebrew (`brew install qemu`)
+will encounter issues when running the provided `cp1-gold.elf` kernel due to peripheral conflicts.
 
-It is available in Homebrew with `brew install qemu`.
-However, the `qemu-system-riscv64` installed through Homebrew cannot run our kernel properly.
-You will later encounter an error like `Store access fault at 0xa00001800` when running the provided `cp1-gold.elf`,
-if you use this QEMU.
-This is related to a conflict between the definition of peripherals in the virtual machine.
-
-To avoid this problem, we need to compile the QEMU from source with the provided patches.
+To avoid this problem, we need to compile the QEMU from source with the provided patch.
 
 Clone the source code with
 
@@ -89,16 +88,20 @@ Clone the source code with
 git clone https://git.qemu.org/git/qemu.git --branch=v9.0.2
 ```
 
-You can download the patches from [the official source](http://courses.grainger.illinois.edu/ece391/fa2024/secure/assignments/mp/mp0/qemu.patch)
-or from [my backup](./resources/qemu.patch).
+Download the patch
+- From [the ECE391 official](http://courses.grainger.illinois.edu/ece391/fa2024/secure/assignments/mp/mp0/qemu.patch)
+- Or from [my backup](./resources/qemu.patch)
 
-Then, move the patch to the root directory of the QEMU source code and apply it with
+**These patches are for FA2024.
+If you are in a different semester, please download the corresponding patch from the course website.**
+
+Move the patch to the root directory of the QEMU source code and apply it:
 
 ```sh
-patch -p1 < qemu.patch
+patch -p0 < qemu.patch
 ```
 
-Now, you can compile the QEMU with
+Compile and install the QEMU:
 
 ```sh
 ./configure --target-list=riscv64-softmmu --enable-sdl --enable-gtk --enable-vnc --enable-cocoa --enable-system --disable-werror
@@ -106,20 +109,18 @@ make
 sudo make install
 ```
 
-After that, the `qemu-system-riscv64` is available in `/usr/local/bin/`.
-
-You can check this with
+Verify the installation:
 
 ```sh
 which qemu-system-riscv64
 ```
 
-## Clangd (Optional)
+### Clangd (Optional)
 
-If you want to use Clangd for code completion and syntax checking,
-you should create a `.clangd` file to specify which compiler and headers to use.
+To enable code completion and syntax checking with **Clangd**,
+create a `.clangd` configuration file in your project root.
 
-This is my `.clangd`:
+Here’s an example:
 
 ```
 CompileFlags:
@@ -131,4 +132,4 @@ CompileFlags:
   ]
 ```
 
-For more information, you can refer to my [VS Code setup](./vscode.md).
+Refer to the [VS Code setup guide](./vscode.md) for additional details.
