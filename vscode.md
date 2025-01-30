@@ -30,6 +30,10 @@ ASFLAGS += -g
 
 Check my [Makefile](./template/mp1/Makefile) for reference.
 
+Then, enable `Debug: Allow Breakpoints Everywhere` in the settings.
+
+![allow_breakpoints](./resources/breakpoints.png)
+
 ### launch.json
 
 The `launch.json` file specifies how to run your program, including the executable path, working directory, debugger path, and so on.
