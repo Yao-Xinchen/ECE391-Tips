@@ -46,8 +46,8 @@
         {
             "label": "Run Kernel",
             "type": "shell",
-            "command": "echo 'QEMU started';qemu-system-riscv64 -S -s -global virtio-mmio.force-legacy=false -machine virt -bios none -kernel demo.elf -m 128M -nographic -serial mon:stdio -device bochs-display",
-            // for MacOS: "command": "echo 'QEMU started';qemu-system-riscv64 -S -s -global virtio-mmio.force-legacy=false -machine virt -bios none -kernel demo.elf -m 128M -nographic -serial mon:stdio -device bochs-display -display sdl",
+            // "command": "echo 'QEMU started';qemu-system-riscv64 -S -s -global virtio-mmio.force-legacy=false -machine virt -bios none -kernel demo.elf -m 128M -nographic -serial mon:stdio -device bochs-display",
+            "command": "echo 'QEMU started';qemu-system-riscv64 -S -s -global virtio-mmio.force-legacy=false -machine virt -bios none -kernel demo.elf -m 128M -nographic -serial mon:stdio -device bochs-display -display sdl",
             "dependsOn": [
                 "Build Kernel",
             ],

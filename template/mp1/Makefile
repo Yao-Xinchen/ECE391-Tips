@@ -36,6 +36,5 @@ clean:
 	rm -rf console.o halt.o intr.o serial.o start.o string.o trap.o vga.o mp1.o *.elf
 
 run-demo:
-	$(QEMU) -machine virt -bios none -kernel demo.elf -m 128M -serial mon:stdio -device bochs-display
-# add `-display sdl` on MacOS
-# $(QEMU) -machine virt -bios none -kernel demo.elf -m 128M -serial mon:stdio -device bochs-display -display sdl
+	$(QEMU) -machine virt -bios none -kernel demo.elf -m 128M -serial mon:stdio -device bochs-display -display sdl
+# remove `-display sdl` if nothing shows up
