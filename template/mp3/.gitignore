@@ -2,7 +2,7 @@
 *.elf
 *.asm
 # .vscode
-.clangd
+# .clangd
 .DS_Store
 src/util/mkfs
 src/util/*.raw

@@ -134,3 +134,12 @@ CompileFlags:
 ```
 
 Refer to the [VS Code setup guide](./vscode.md) for additional details.
+
+## MP1
+
+To enable graphic output in MP1, you need to add `-display sdl` to Makefile.
+
+```makefile
+run-demo:
+	$(QEMU) -machine virt -bios none -kernel demo.elf -m 128M -serial mon:stdio -device bochs-display -display sdl
+```

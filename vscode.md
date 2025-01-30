@@ -3,26 +3,39 @@
 This is a demo for how to set up a RISC-V development environment in VS Code.
 These settings will help you write, compile, and debug RISC-V code in VS Code.
 
-You can check my [template project](./template/) for a complete example.
+You can check my [template project](./template/) for complete examples,
+for [MP1](./template/mp1/) and [MP3](./template/mp3/).
 
 ## Debugging
 
 ![debug](./resources/debug.png)
 
 VS Code has a built-in GUI debugger that supports GDB.
-That requires several configuration files under the `.vscode` directory in the root of your project, including: [launch.json](./template/.vscode/launch.json) and [tasks.json](./template/.vscode/tasks.json).
+That requires several configuration files under the `.vscode` directory in the root of your project, including: [launch.json](./template/mp3/.vscode/launch.json) and [tasks.json](./template/mp3/.vscode/tasks.json).
 
 With these configurations, you can:
 1. Compile and run your program with a single click in the `run and debug` panel.
 2. Set breakpoints and step through your code.
 3. Inspect runtime values of variables and registers.
 
+### Assembly Debugging
+
+To enable debugging in assembly, make sure `-g` is included in your `ASFLAGS` in the Makefile.
+
+Add the following line to your Makefile, if it is not already there:
+
+```makefile
+ASFLAGS += -g
+```
+
+Check my [Makefile](./template/mp1/Makefile) for reference.
+
 ### launch.json
 
 The `launch.json` file specifies how to run your program, including the executable path, working directory, debugger path, and so on.
 It relies on a `preLaunchTask` to indicate what commands are needed to run the program.
 
-In my [launch.json](./template/.vscode/launch.json), the snippet defines a debug configuration
+In my [launch.json](./template/mp3/.vscode/launch.json), the snippet defines a debug configuration
 called `main` for the kernel.
 It will execute the `Run Kernel` task before launching the debugger.
 
@@ -43,7 +56,7 @@ It will execute the `Run Kernel` task before launching the debugger.
 
 The `tasks`, including the choice for `preLaunchTask`, are defined in the `tasks.json` file.
 
-In my [tasks.json](./template/.vscode/tasks.json), each task is a set of commands to run.
+In my [tasks.json](./template/mp3/.vscode/tasks.json), each task is a set of commands to run.
 You can give each task a `label` and a `command` to run.
 The `cwd` option specifies the working directory for the command.
 
@@ -115,7 +128,7 @@ The extension relies on the `clang-format` executable in your PATH.
 You can install it with your package manager (e.g. `brew install clang-format` on Mac).
 
 We also need to create a `.clang-format` file in the root directory to specify the formatting style.
-You can write your own style based on my [.clang-format](./template/.clang-format).
+You can write your own style based on my [.clang-format](./template/mp3/.clang-format).
 
 After that, you are ready to format your code.
 You can check your keymaps for the format command in the `Keyboard Shortcuts` settings.

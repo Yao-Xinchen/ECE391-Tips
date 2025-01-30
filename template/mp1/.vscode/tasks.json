@@ -1,0 +1,82 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Kernel",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "all",
+                "-j"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "dependsOn": [
+                "Clean Kernel"
+            ]
+        },
+        {
+            "label": "Clean Kernel",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "clean"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            }
+        },
+        {
+            "label": "Run Kernel",
+            "type": "shell",
+            "command": "echo 'QEMU started';qemu-system-riscv64 -S -s -global virtio-mmio.force-legacy=false -machine virt -bios none -kernel demo.elf -m 128M -nographic -serial mon:stdio -device bochs-display",
+            // for MacOS: "command": "echo 'QEMU started';qemu-system-riscv64 -S -s -global virtio-mmio.force-legacy=false -machine virt -bios none -kernel demo.elf -m 128M -nographic -serial mon:stdio -device bochs-display -display sdl",
+            "dependsOn": [
+                "Build Kernel",
+            ],
+            "args": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "isBackground": true,
+            "problemMatcher": [
+                {
+                    "pattern": [
+                        {
+                            "regexp": ".",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": ".",
+                        "endsPattern": ".",
+                    }
+                }
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            }
+        }
+    ]
+}
